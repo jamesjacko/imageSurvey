@@ -2,9 +2,39 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="/styles/style.css" media="screen" title="no title">
+    <link rel="stylesheet" href="styles/style.css" media="screen" title="no title">
     <script src="scripts/script.js" charset="utf-8"></script>
     <title>Image Survey</title>
+    <script type="text/javascript">
+      var _settings = {
+        itemFunction: function(options){
+          var img = document.createElement('img');
+          img.src = options.src;
+          var div = document.getElementById("choices");
+          div.appendChild(img);
+          console.log("here");
+        },
+        numberPerQuesion: 2,
+        items: [
+          {
+            id: 0,
+            options: {
+              src: "images/lena.bmp"
+            }
+          },
+          {
+            id: 1,
+            options: {
+              src: "images/EX0423.jpg"
+            }
+          }
+        ]
+      };
+      window.onload = function(){
+        init(_settings);
+        console.log(_settings.itemFunction);
+      }
+    </script>
   </head>
   <body>
   </body>
