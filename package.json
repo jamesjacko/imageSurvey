@@ -1,0 +1,23 @@
+{
+  "name": "imagesurvey",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cp node_modules/jquery/dist/jquery.min.js scripts/jquery.min.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jamesjacko/imageSurvey.git"
+  },
+  "author": "James Jackson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jamesjacko/imageSurvey/issues"
+  },
+  "homepage": "https://github.com/jamesjacko/imageSurvey#readme",
+  "dependencies": {
+    "jquery": "^3.1.1"
+  }
+}
