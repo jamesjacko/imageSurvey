@@ -13,8 +13,7 @@ function showChoices(_settings){
   var choices = randperm(_settings.items.length);
   for (var i = 0; i < _settings.numberPerQuestion; i++) {
     if(typeof _settings.itemFunction === "function"){
-      _settings.itemFunction(_settings.items[i].options);
-      console.log("here12");
+      _settings.itemFunction(_settings.items[choices[i]].options);
     }
     else
       console.error("You must provide an item as a function");
@@ -36,5 +35,6 @@ function randperm(length){
         permArray[i] = permArray[randPos];
         permArray[randPos] = tmpStore;
     }
+    console.log(permArray);
     return permArray;
 }
