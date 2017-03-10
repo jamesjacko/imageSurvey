@@ -8,12 +8,31 @@
     <script type="text/javascript">
       var _settings = {
         itemFunction: function(options){
+          var div = document.createElement('div');
+          div.className = "img_surv_option";
           var img = document.createElement('img');
           img.src = options.src;
-          var div = document.getElementById("choices");
           div.appendChild(img);
+          return div;
         },
-        numberPerQuestion: 2,
+        choiceOptions:{
+          type: 2,
+          numberPerQuestion: 2,
+          timePerQuestion: 5,
+          question: "Are the images different?",
+          options: [
+            {
+              name: "Yes",
+              keyCode: 90,
+              value: true
+            },
+            {
+              name: "No",
+              keyCode: 77,
+              value: false
+            }
+          ]
+        },
         items: [
           {
             id: 0,
@@ -48,10 +67,14 @@
         ]
       };
       window.onload = function(){
-        init(_settings);
+        _img = new imageSurvey(_settings);
       }
     </script>
   </head>
   <body>
+    <div id="head">
+        GlyphMkr Image Survey
+    </div>
+  </body>
   </body>
 </html>

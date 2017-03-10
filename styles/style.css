@@ -1,0 +1,75 @@
+body{
+  font-family: Frutiger, "Frutiger Linotype", Univers, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size:16px;
+  margin: 0;
+  background: url(../images/simple_dashed.png);
+  color: #CCC;
+}
+.wrapper{
+  width:1200px;
+  margin:0 auto;
+}
+.img_surv_progressbar{
+  width:1px;
+  transition-property:width;
+  transition-duration: 2s;
+  transition-timing-function: linear;
+  height:5px;
+  background: green;
+  position: absolute;
+  left: 0px;
+  top: 70px;
+}
+.img_surv_progressbar:after{
+  content: "";
+  display: table;
+  clear: both;
+}
+#img_surv_choices{
+  width:1200px;
+  margin:50px auto;
+  text-align: center;
+}
+.img_surv_option{
+  display:inline-block;
+  margin: 0 10px;
+}
+#img_surv_option_buttons{
+  clear:both;
+}
+#head{
+  background: #CCC;
+  line-height: 50px;
+  padding: 10px;
+  color: #666;
+  font-size: 20px;
+  border-bottom:1px solid #FFF;
+  box-shadow: 1px 1px 5px #000;
+}
+button{
+ display: inline-block;
+ border:1px solid #107db0;
+ color: #ffffff;
+ border-radius: 3px 3px 3px 3px;
+ -webkit-border-radius: 3px 3px 3px 3px;
+ -moz-border-radius: 3px 3px 3px 3px;
+ width: auto;
+ height: auto;
+ padding: 10px 40px;
+ /*box-shadow: inset 0 1px 0 0 #7cd4fc,inset 0 -1px 0 0 #2696c9,inset 0 0 0 1px #59b7e3,0 2px 4px 0 #E4E4E4;
+ -moz-box-shadow: inset 0 1px 0 0 #7cd4fc,inset 0 -1px 0 0 #2696c9,inset 0 0 0 1px #59b7e3,0 2px 4px 0 #E4E4E4;
+ -webkit-box-shadow: inset 0 1px 0 0 #7cd4fc,inset 0 -1px 0 0 #2696c9,inset 0 0 0 1px #59b7e3,0 2px 4px 0 #E4E4E4;*/
+ text-shadow: 0 1px 2px #000000;
+ background-image: linear-gradient(to top, #42b0e3, #2ba9e3);
+ background-color: #42b0e3;
+ margin:0 10px;
+ cursor: pointer;
+}
+button:hover, button:active{
+ border:1px solid #004c6f;
+ color: #ffffff;
+ box-shadow: inset 0 1px 0 0 #7cd4fc,inset 0 -1px 0 0 #2696c9,inset 0 0 0 1px #59b7e3;
+ -moz-box-shadow: inset 0 1px 0 0 #7cd4fc,inset 0 -1px 0 0 #2696c9,inset 0 0 0 1px #59b7e3;
+ -webkit-box-shadow: inset 0 1px 0 0 #7cd4fc,inset 0 -1px 0 0 #2696c9,inset 0 0 0 1px #59b7e3;
+ background-color: #2ba9e3;
+}
