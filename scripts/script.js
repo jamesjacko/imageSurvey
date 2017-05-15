@@ -29,7 +29,14 @@ function imageSurvey(_settings) {
     for (var i = 0; i < _settings.choiceOptions.numberPerQuestion; i++) {
       if(typeof _settings.itemFunction === "function"){
         var obj = _settings.itemFunction(_settings.items[choices[i]].options);
-        this.add(obj, container);
+        if(obj.obj)
+          this.add(obj.obj, container);
+        else
+          this.add(obj, container);
+
+        if(typeof obj.callback === "function")
+          obj.callback();
+        console.log(obj);
         shownChoices.push(choices[i]);
       }
       else
@@ -73,7 +80,6 @@ function imageSurvey(_settings) {
       clicker.setAttribute('tabindex', 0);
       clicker.focus();
       clicker.addEventListener("keydown",function(e){
-        console.log(e.keyCode);
         keys.forEach(function(key){
           if(e.keyCode === key.key){
             _this.storeChoice(shownChoices, key.value, 1);
@@ -104,7 +110,6 @@ function imageSurvey(_settings) {
       time: time
     };
     this._results.push(obj);
-    console.log(this._results);
   }
 
   this.add = function(obj, container){

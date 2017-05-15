@@ -1,100 +1,165 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="styles/style.css" media="screen" title="no title">
     <script src="scripts/script.js" charset="utf-8"></script>
+    <script src="scripts/glyphmaker.js" charset="utf-8"></script>
+    <style media="screen">
+      .img_surv_option{
+        height:100px;
+        padding:20px 50px;
+        background: #fff;
+      }
+    </style>
     <title>Image Survey</title>
     <script type="text/javascript">
-      var _settings = {
-        itemFunction: function(options){
-          var div = document.createElement('div');
-          div.className = "img_surv_option";
-          var img = document.createElement('img');
-          img.src = options.src;
-          div.appendChild(img);
-          return div;
-        },
-        choiceOptions:{
-          type: 2,
-          numberPerQuestion: 2,
-          timePerQuestion: 3,
-          question: "Rate the difference between the two glyphs (1 no similarity, 6 high similarity)",
-          options: [
-            {
-              name: "0",
-              keyCode: 48,
-              value: true
-            },
-            {
-              name: "1",
-              keyCode: 49,
-              value: true
-            },
-            {
-              name: "2",
-              keyCode: 50,
-              value: true
-            },
-            {
-              name: "3",
-              keyCode: 51,
-              value: true
-            },
-            {
-              name: "4",
-              keyCode: 52,
-              value: true
-            },
-            {
-              name: "5",
-              keyCode: 53,
-              value: true
+        var _plays = {};
+        _plays.pairs = []
+        for (var i = 0; i < 28; i++) {
+            for (var j = 0; j < 28; j++) {
+                if (i != j && i < j) {
+                    _plays.pairs.push({
+                        a: i,
+                        b: j,
+                        count: 0
+                    });
+                }
             }
-          ]
-        },
-        items: [
-          {
-            id: 0,
-            options: {
-              src: "images/1.jpeg"
-            }
-          },
-          {
-            id: 1,
-            options: {
-              src: "images/2.jpeg"
-            }
-          },
-          {
-            id: 2,
-            options: {
-              src: "images/3.jpeg"
-            }
-          },
-          {
-            id: 3,
-            options: {
-              src: "images/4.jpeg"
-            }
-          },
-          {
-            id: 4,
-            options: {
-              src: "images/5.jpeg"
+        }
+        _plays.getNextPair = function(){
+          var min = _plays.pairs[0].count;
+          for (var i = 1; i < _plays.pairs.length; i++) {
+            min = _plays.pairs[i].count < min : min;
+          }
+          var playable = [];
+          for (var i = 0; i < _plays.pairs.length; i++) {
+            if(_plays.pairs[i].count === min){
+              playable.push(i)
             }
           }
-        ]
-      };
-      window.onload = function(){
-        _img = new imageSurvey(_settings);
-      }
+          var pair = playable[Math.floor(Math.random()*playable.length)];
+          _plays.pairs[pair].count++;
+          return _plays.pairs[pair];
+        }
+        var _settings = {
+            itemFunction: function(options) {
+                var div = document.createElement('div');
+                div.classList.add('img_surv_option');
+                var canvas = document.createElement('canvas');
+                var obj = {
+                    name: "Patient",
+                    values: [{
+                        name: "height",
+                        min: 1,
+                        max: 2.5,
+                        value: 2
+                    }, {
+                        name: "weight",
+                        min: 0,
+                        max: 100,
+                        value: 80
+                    }, {
+                        name: "blood",
+                        min: 40,
+                        max: 60,
+                        value: 60
+                    }]
+                }
+                canvas.width = 100;
+                canvas.height = 100;
+                canvas.style.background = "#FFF"
+                div.appendChild(canvas);
+                var cb = function(){
+                  getGlyph(canvas, 26, obj);
+                }
+                newObj = {
+                  obj: div,
+                  callback: cb
+                }
+                return newObj;
+            },
+            choiceOptions: {
+                type: 2,
+                numberPerQuestion: 2,
+                timePerQuestion: 0,
+                question: "Rate the difference between the two glyphs (1 no similarity, 6 high similarity)",
+                options: [{
+                        name: "0",
+                        keyCode: 48,
+                        value: true
+                    },
+                    {
+                        name: "1",
+                        keyCode: 49,
+                        value: true
+                    },
+                    {
+                        name: "2",
+                        keyCode: 50,
+                        value: true
+                    },
+                    {
+                        name: "3",
+                        keyCode: 51,
+                        value: true
+                    },
+                    {
+                        name: "4",
+                        keyCode: 52,
+                        value: true
+                    },
+                    {
+                        name: "5",
+                        keyCode: 53,
+                        value: true
+                    }
+                ]
+            },
+            items: [{
+                    id: 0,
+                    options: {
+                        src: "images/1.jpeg"
+                    }
+                },
+                {
+                    id: 1,
+                    options: {
+                        src: "images/2.jpeg"
+                    }
+                },
+                {
+                    id: 2,
+                    options: {
+                        src: "images/3.jpeg"
+                    }
+                },
+                {
+                    id: 3,
+                    options: {
+                        src: "images/4.jpeg"
+                    }
+                },
+                {
+                    id: 4,
+                    options: {
+                        src: "images/5.jpeg"
+                    }
+                }
+            ]
+        };
+        window.onload = function() {
+            _img = new imageSurvey(_settings);
+        }
     </script>
-  </head>
-  <body>
+</head>
+
+<body>
     <div id="head">
         GlyphMkr Image Survey
     </div>
-  </body>
-  </body>
+</body>
+</body>
+
 </html>

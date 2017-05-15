@@ -13,29 +13,22 @@ function getJSONObj() {
     settings = JSON.parse(document.getElementById('JSON').value);
 }
 
-function loadDataPoints() {
-    getJSONObj();
-    document.getElementById('seedValue').value = settings.name;
-    var inputs = "";
-    settings.values.forEach(function(elem, e) {
-        inputs += '<label>' + elem.name +
-            ': <input type="text" name="value' + e +
-            '" value="' + elem.value +
-            '" class="value" disabled></label><br />';
-    });
-    document.getElementById('details').innerHTML = inputs;
-    console.log(JSON.stringify(settings));
+function getJSONObj(string) {
+    settings = string;
 }
 
-function draw(ctx) {
-    getValues();
-    seed = document.getElementById("seedValue").value.hashCode();
+function loadDataPoints(obj) {
+    settings = obj
+    seed = obj.name.hashCode();
     colorSeed = seed;
+}
+
+function draw(ctx, glyph) {
     ctx.beginPath();
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    var size = 80;
-    var offsetx = 0;
-    var offsety = 0;
+    var size = ctx.canvas.width - 10;
+    var offsetx = 10;
+    var offsety = 10;
     //ctx.rect(offset, offset, size, size);
     //ctx.stroke();
     var coords = initCoords(size, settings.values.length);
@@ -46,9 +39,8 @@ function draw(ctx) {
     var angle = degToRad(random() * 180);
     var midPoints = [];
     coords.forEach(function(elem, e) {
-        if (document.getElementById("rotate").checked === true) {
-            coords[e] = rotatePoint(pivot, elem, angle);
-        }
+        coords[e] = rotatePoint(pivot, elem, angle);
+
         coords[e].corner = closestCorner(coords[e], size);;
         if (e !== 0) {
             var midPoint = {
@@ -95,7 +87,6 @@ function draw(ctx) {
 
     var colors = [];
     var canvasWidth = ctx.canvas.width;
-    console.log(canvasWidth);
     seed = colorSeed;
     for (var i = 0; i <= settings.values.length; i++) {
         colors.push(getRandomColor(opacity));
@@ -107,11 +98,11 @@ function draw(ctx) {
             drawLine(ctx, (offsetx + glyphSize * offset) % canvasWidth, Math.floor((offsety + glyphSize * offset++) / canvasWidth), coords);
             break;
         case 1:
-            break;
             drawPoints(ctx, coords, {
                 x: (offsetx + glyphSize * offset) % canvasWidth,
                 y: Math.floor((offsety + glyphSize * offset++) / canvasWidth) * glyphSize
             });
+            break;
         case 2:
             drawMidPointLines(ctx, (offsetx + glyphSize * offset) % canvasWidth, Math.floor((offsety + glyphSize * offset++) / canvasWidth), coords, midPoints);
             break;
@@ -359,7 +350,6 @@ function initCoords(size, numCoords) {
         y: Math.round((random() * range) + off)
     }];
     var multiplier = 1 / (numCoords);
-    console.log(multiplier);
     for (var i = 1; i < numCoords; i++) {
         points.push({
             x: Math.round((((multiplier * i) * 0.8) + 0.1) * size),
@@ -389,18 +379,7 @@ function rotatePoint(pivot, point, angle) {
 function degToRad(angle) {
     return angle * (Math.PI / 180);
 }
-window.onload = function() {
-    var canvas = document.getElementById('canvas');
-    var ctx = canvas.getContext("2d");
-    loadDataPoints();
-    draw(ctx);
-    document.getElementById("update").addEventListener("click", function(e) {
-        e.preventDefault();
-        getJSONObj();
-        loadDataPoints();
-        draw(ctx);
-    });
-};
+
 
 function drawPoints(ctx, coords, offset) {
     coords.forEach(function(elem) {
@@ -422,11 +401,11 @@ var once = 0;
 
 function drawRectangle(ctx, centre, offset, size, color, options) {
     // plus 1 to settings to account for name
-    if (once++ < settings.values.length + 1) {
-        ctx.fillStyle = color;
-        ctx.font = "bold 9px Arial";
-        ctx.fillText("Option" + once, 40 * once, ctx.canvas.height - 30);
-    }
+    // if (once++ < settings.values.length + 1) {
+    //     ctx.fillStyle = color;
+    //     ctx.font = "bold 9px Arial";
+    //     ctx.fillText("Option" + once, 40 * once, ctx.canvas.height - 30);
+    // }
     var point = closestCorner(centre, size);
     if (options && options.relative) {
         var rectPoint = {
@@ -460,11 +439,11 @@ function getRandomColor(opacity) {
 
 function drawCircle(ctx, centre, offset, size, color, options) {
     // plus 1 to settings to account for name
-    if (once++ < settings.values.length + 1) {
-        ctx.fillStyle = color;
-        ctx.font = "bold 9px Arial";
-        ctx.fillText("Option" + once, 40 * once, ctx.canvas.height - 30);
-    }
+    // if (once++ < settings.values.length + 1) {
+    //     ctx.fillStyle = color;
+    //     ctx.font = "bold 9px Arial";
+    //     ctx.fillText("Option" + once, 40 * once, ctx.canvas.height - 30);
+    // }
     var point = closestCorner(centre, size);
 
     var width = Math.min(Math.abs(point.x * size - centre.x), Math.abs(point.y * size - centre.y));
@@ -744,7 +723,6 @@ function testingRemoval() {
     for (var i = 0; i < a.length; i++) {
 
         if (paired.indexOf(i) !== -1) {
-            console.log("here 1");
             continue;
         }
         for (var j = 0; j < a.length; j++) {
@@ -894,4 +872,11 @@ function eDist(point1, point2) {
     var first = Math.pow((point1.x - point2.x), 2);
     var second = Math.pow((point1.y - point2.y), 2);
     return Math.sqrt(first + second);
+}
+
+
+function getGlyph(canvas, glyph, obj){
+  var ctx = canvas.getContext("2d");
+  loadDataPoints(obj);
+  draw(ctx, glyph);
 }
