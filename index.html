@@ -39,6 +39,7 @@
               playable.push(i)
             }
           }
+          console.log(playable.length);
           var pair = playable[Math.floor(Math.random()*playable.length)];
           _plays.pairs[pair].count++;
           return _plays.pairs[pair];
