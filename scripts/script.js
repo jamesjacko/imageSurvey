@@ -73,6 +73,7 @@ function imageSurvey(_settings) {
       clicker.setAttribute('tabindex', 0);
       clicker.focus();
       clicker.addEventListener("keydown",function(e){
+        console.log(e.keyCode);
         keys.forEach(function(key){
           if(e.keyCode === key.key){
             _this.storeChoice(shownChoices, key.value, 1);
