@@ -31,7 +31,7 @@
         _plays.getNextPair = function(){
           var min = _plays.pairs[0].count;
           for (var i = 1; i < _plays.pairs.length; i++) {
-            min = _plays.pairs[i].count < min : min;
+            min = _plays.pairs[i].count < min? _plays.pairs[i].count : min;
           }
           var playable = [];
           for (var i = 0; i < _plays.pairs.length; i++) {
@@ -45,9 +45,14 @@
         }
         var _settings = {
             itemFunction: function(options) {
+                var pair = _plays.getNextPair();
                 var div = document.createElement('div');
+                var parent = document.createElement('div');
+                var div2 = document.createElement('div');
                 div.classList.add('img_surv_option');
+                div2.classList.add('img_surv_option');
                 var canvas = document.createElement('canvas');
+                var canvas2 = document.createElement('canvas');
                 var obj = {
                     name: "Patient",
                     values: [{
@@ -68,21 +73,28 @@
                     }]
                 }
                 canvas.width = 100;
+                canvas2.width = 100;
                 canvas.height = 100;
+                canvas2.height = 100;
                 canvas.style.background = "#FFF"
+                canvas2.style.background = "#FFF"
                 div.appendChild(canvas);
+                div2.appendChild(canvas2);
+                parent.appendChild(div);
+                parent.appendChild(div2);
                 var cb = function(){
-                  getGlyph(canvas, 26, obj);
+                  getGlyph(canvas, pair.a, obj);
+                  getGlyph(canvas2, pair.b, obj);
                 }
                 newObj = {
-                  obj: div,
+                  obj: parent,
                   callback: cb
                 }
                 return newObj;
             },
             choiceOptions: {
                 type: 2,
-                numberPerQuestion: 2,
+                numberPerQuestion: 1,
                 timePerQuestion: 0,
                 question: "Rate the difference between the two glyphs (1 no similarity, 6 high similarity)",
                 options: [{
