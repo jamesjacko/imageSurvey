@@ -18,16 +18,21 @@
         choiceOptions:{
           type: 2,
           numberPerQuestion: 3,
-          timePerQuestion: 5,
-          question: "Are the images different?",
+          timePerQuestion: 0,
+          question: "Which do you prefer?",
           options: [
             {
-              name: "Yes",
+              name: "A",
               keyCode: 90,
               value: true
             },
             {
-              name: "No",
+              name: "B",
+              keyCode: 77,
+              value: false
+            },
+            {
+              name: "C",
               keyCode: 77,
               value: false
             }
@@ -47,19 +52,19 @@
             }
           },
           {
-            id: 1,
+            id: 2,
             options: {
               src: "images/3.jpeg"
             }
           },
           {
-            id: 1,
+            id: 3,
             options: {
               src: "images/4.jpeg"
             }
           },
           {
-            id: 1,
+            id: 4,
             options: {
               src: "images/5.jpeg"
             }
