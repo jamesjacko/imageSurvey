@@ -46,9 +46,9 @@
         }
         var _settings = {
             itemFunction: function(options) {
-                var pair = _plays.getNextPair();
-                var div = document.createElement('div');
                 var parent = document.createElement('div');
+                var pair = options.plays.getNextPair();
+                var div = document.createElement('div');
                 var div2 = document.createElement('div');
                 div.classList.add('img_surv_option');
                 div2.classList.add('img_surv_option');
@@ -77,8 +77,8 @@
                 canvas2.width = 100;
                 canvas.height = 100;
                 canvas2.height = 100;
-                canvas.style.background = "#FFF"
-                canvas2.style.background = "#FFF"
+                canvas.style.background = "#FFF";
+                canvas2.style.background = "#FFF";
                 div.appendChild(canvas);
                 div2.appendChild(canvas2);
                 parent.appendChild(div);
@@ -133,31 +133,7 @@
             items: [{
                     id: 0,
                     options: {
-                        src: "images/1.jpeg"
-                    }
-                },
-                {
-                    id: 1,
-                    options: {
-                        src: "images/2.jpeg"
-                    }
-                },
-                {
-                    id: 2,
-                    options: {
-                        src: "images/3.jpeg"
-                    }
-                },
-                {
-                    id: 3,
-                    options: {
-                        src: "images/4.jpeg"
-                    }
-                },
-                {
-                    id: 4,
-                    options: {
-                        src: "images/5.jpeg"
+                        plays: _plays
                     }
                 }
             ]
