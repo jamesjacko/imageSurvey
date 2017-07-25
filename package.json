@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/jamesjacko/imageSurvey#readme",
   "dependencies": {
-    "jquery": "^3.1.1"
+    "jquery": "^3.1.1",
+    "semantic-ui": "^2.2.10"
   }
 }
